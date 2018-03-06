@@ -5,12 +5,14 @@ Since the code for the JS SDK and Node.js SDK is shared, the recommendation is t
 
 Fileupload is supported in both SDKs, but implemented differently, so this feature should be tested in both SDKs.
 
+These test use the Mocha test framework with Chai assertion for browser tests and integrated assert module for node. For browser tests puppeteer is used to run Chrome in headless mode to allow for reliable WebRTC tests.
+
 ### JS SDK tests
-JS SDK tests are located at `tests/browser` by default.
+JS SDK tests are located at `test/browser` by default.
 
 To execute only JS SDK tests run `npm run test:browser`. To run a subset of test pass a one or multiple paths (or glob patterns) to index.js using the `--files` option. E.g.
 ```bash
-node index --files tests/browser/favorites/*.html
+node test/index --files "test/browser/directcall.html"
 ```
 
 Other options are:
@@ -18,7 +20,7 @@ Other options are:
 * `--port`: Port to serve the app on. Defaults to port 3000
 * `--executablePath`: Path to browser executable. Defaults to Chrome included in installed puppeteer version. See package.json
 
-To write a new test, create a new html file in `tests/browser`, or a subfolder. Also create a new js file, preferrably named the same, and include it in the grml file. The new tests are then picked up automatically.
+To write a new test, create a new html file in `test/browser`, or a subfolder. Also create a new js file, preferrably named the same, and include it in the grml file. The new tests are then picked up automatically.
 
 #### Use peer users
 The proxy class `PeerUser` allows to login and control browser instances with other users. For example your tests can initiate a direct call and then have a peer user answer the call. See directcall.js for an example.
