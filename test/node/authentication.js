@@ -13,7 +13,8 @@ describe('Authentication', () => {
     it('should login using Client Credentials', async () => {
         client = new Circuit.Client(config.bot1);
         const user = await client.logon();
-        assert(!!user);
+        //assert(!!user);
+        assert(false);
     });
 
     it('should be authenticated', async () => {
