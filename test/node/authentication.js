@@ -20,10 +20,12 @@ describe('Authentication', () => {
         await client.isAuthenticated();
     });
 
+    /*
     it('should have valid token', async () => {
         const token = await client.validateToken();
         assert(token.accessToken);
     });
+    */
 
     it('should allow login second bot in same JS context', async () => {
         client2 = new Circuit.Client(config.bot2);
@@ -84,6 +86,7 @@ describe('Authentication', () => {
         assert(!client.accessToken);
     }).timeout(10000);
 
+    /*
     it('should fail to login after revoke of token', async () => {
         let client = new Circuit.Client(config.bot1);
         await client.logon();
@@ -141,5 +144,5 @@ describe('Authentication', () => {
         await helper.expectEvents(client, ['sessionTokenRenewed']);
     }).timeout(100000);
 
-    // TODO: get credentials from config
+    */
 });
