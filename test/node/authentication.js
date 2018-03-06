@@ -1,7 +1,7 @@
 'use strict';
 
 const assert = require('assert');
-const Circuit = require('circuit-sdk');
+const Circuit = require('../../circuit-node');
 const config = require('./config.json');
 const helper = require('./helper');
 Circuit.logger.setLevel(Circuit.Enums.LogLevel.Error);
@@ -14,24 +14,22 @@ describe('Authentication', () => {
         client = new Circuit.Client(config.bot1);
         const user = await client.logon();
         assert(!!user);
-    }).timeout(5000);
+    });
 
     it('should be authenticated', async () => {
         await client.isAuthenticated();
     });
 
-    /*
     it('should have valid token', async () => {
         const token = await client.validateToken();
         assert(token.accessToken);
     });
-    */
 
     it('should allow login second bot in same JS context', async () => {
         client2 = new Circuit.Client(config.bot2);
         const user = await client2.logon();
         assert(!!user);
-    }).timeout(5000);
+    });
 
     it('should read domain property', async () => {
         assert(client.domain === 'circuitsandbox.net');
@@ -61,7 +59,7 @@ describe('Authentication', () => {
         } catch (err) {
             assert(true);
         }
-    }).timeout(5000);
+    });
 
     it('should login using delayed OAuth settings', async () => {
         const client = new Circuit.Client();
@@ -69,7 +67,7 @@ describe('Authentication', () => {
         const user = await client.logon();
         assert(!!user);
         await client.logout();
-    }).timeout(5000);
+    });
 
     it('should login using accessToken and accessToken property is cleared after logout', async () => {
         let client = new Circuit.Client(config.bot1);
@@ -84,9 +82,8 @@ describe('Authentication', () => {
         assert(!!user);
         await client.logout();
         assert(!client.accessToken);
-    }).timeout(10000);
+    });
 
-    /*
     it('should fail to login after revoke of token', async () => {
         let client = new Circuit.Client(config.bot1);
         await client.logon();
@@ -104,14 +101,14 @@ describe('Authentication', () => {
         } catch (err) {
             assert(true);
         }
-    }).timeout(10000);
+    });
 
     it('should login fresh after revoke of token', async () => {
         const client = new Circuit.Client(config.bot1);
         const user = await client.logon();
         assert(!!user);
         await client.logout();
-    }).timeout(5000);
+    });
 
     it('should renew the access token, get accessTokenRenewed event and unable to login with old token', async () => {
         let client = new Circuit.Client(config.bot1);
@@ -134,7 +131,7 @@ describe('Authentication', () => {
 
         await client.logon({accessToken: newToken});
         await client.logout();
-    }).timeout(100000);
+    });
 
     it('should succeed to renew session token', async () => {
         let client = new Circuit.Client(config.bot1);
@@ -142,7 +139,6 @@ describe('Authentication', () => {
         const token = client.accessToken;
         await client.renewSessionToken();
         await helper.expectEvents(client, ['sessionTokenRenewed']);
-    }).timeout(100000);
+    });
 
-    */
 });
